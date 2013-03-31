@@ -4,6 +4,7 @@
 %bcond_without	static_libs	# don't build static libraries
 #
 Summary:	GLib geocoding library that uses the Yahoo! Place Finder service
+Summary(pl.UTF-8):	Biblioteka GLib do geokodowania wykorzystująca serwis Yahoo! Place Finder
 Name:		geocode-glib
 Version:	0.99.0
 Release:	1
@@ -20,9 +21,11 @@ BuildRequires:	gobject-introspection-devel >= 0.6.3
 BuildRequires:	gtk-doc >= 1.9
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	json-glib-devel >= 0.13.1
-BuildRequires:	libsoup-devel
+BuildRequires:	libsoup-devel >= 2.4
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
+Requires:	glib2 >= 1:2.16.0
+Requires:	json-glib >= 0.13.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -30,11 +33,17 @@ geocode-glib allows you to do geocoding (going from a place name, to a
 longitude/latitude pair) and reverse geocoding (finding a place name
 from coordinates).
 
+%description -l pl.UTF-8
+Ten pakiet umożliwia geokodowanie (kodowanie geograficzne - zamianę
+nazwy miejsca na parę długość/szerokość geograficzna) oraz odwrotne
+geokodowanie (odnajdywanie nazwy miejsca na podstawie współrzędnych).
+
 %package devel
 Summary:	Header files for geocode-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki geocode-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	glib2-devel >= 1:2.16.0
 
 %description devel
 Header files for geocode-glib library.
@@ -78,6 +87,7 @@ Dokumentacja API biblioteki geocode-glib.
 %{__automake}
 %configure \
 	%{__enable_disable apidocs gtk-doc} \
+	--disable-silent-rules \
 	%{__enable_disable static_libs static} \
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
