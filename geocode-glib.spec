@@ -6,26 +6,29 @@
 Summary:	GLib geocoding library that uses the Yahoo! Place Finder service
 Summary(pl.UTF-8):	Biblioteka GLib do geokodowania wykorzystująca serwis Yahoo! Place Finder
 Name:		geocode-glib
-Version:	0.99.0
+Version:	0.99.1
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://download.gnome.org/sources/geocode-glib/0.99/%{name}-%{version}.tar.bz2
-# Source0-md5:	73ac778225f35ad996ea0345c5abe4b9
-BuildRequires:	autoconf >= 2.52
-BuildRequires:	automake >= 1:1.8
-BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.16.0
+Source0:	http://download.gnome.org/sources/geocode-glib/0.99/%{name}-%{version}.tar.xz
+# Source0-md5:	12ebb262dd3fac80826bcca653347b62
+BuildRequires:	GeoIP-devel
+BuildRequires:	autoconf >= 2.63
+BuildRequires:	automake >= 1:1.11
+BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	glib2-devel >= 1:2.34
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.6.3
-BuildRequires:	gtk-doc >= 1.9
-BuildRequires:	intltool >= 0.35.0
-BuildRequires:	json-glib-devel >= 0.13.1
+BuildRequires:	gtk-doc >= 1.13
+BuildRequires:	intltool >= 0.41.0
+BuildRequires:	json-glib-devel >= 0.14
 BuildRequires:	libsoup-devel >= 2.4
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
-Requires:	glib2 >= 1:2.16.0
-Requires:	json-glib >= 0.13.1
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
+Requires:	glib2 >= 1:2.34
+Requires:	json-glib >= 0.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,7 +46,7 @@ Summary:	Header files for geocode-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki geocode-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.16.0
+Requires:	glib2-devel >= 1:2.34
 
 %description devel
 Header files for geocode-glib library.
@@ -107,6 +110,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
+%attr(755,root,root) %{_bindir}/geoip-update
 %attr(755,root,root) %{_libdir}/libgeocode-glib.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgeocode-glib.so.0
 %{_libdir}/girepository-1.0/GeocodeGlib-1.0.typelib
@@ -115,9 +119,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgeocode-glib.so
 %{_libdir}/libgeocode-glib.la
-%{_includedir}/geocode-glib
+%{_includedir}/geocode-glib-1.0
 %{_datadir}/gir-1.0/GeocodeGlib-1.0.gir
-%{_pkgconfigdir}/geocode-glib.pc
+%{_pkgconfigdir}/geocode-glib-1.0.pc
 
 %if %{with static_libs}
 %files static
