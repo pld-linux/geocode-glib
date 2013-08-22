@@ -6,13 +6,13 @@
 Summary:	GLib geocoding library that uses the Yahoo! Place Finder service
 Summary(pl.UTF-8):	Biblioteka GLib do geokodowania wykorzystująca serwis Yahoo! Place Finder
 Name:		geocode-glib
-Version:	0.99.1
+Version:	0.99.2
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://download.gnome.org/sources/geocode-glib/0.99/%{name}-%{version}.tar.xz
-# Source0-md5:	12ebb262dd3fac80826bcca653347b62
-BuildRequires:	GeoIP-devel
+# Source0-md5:	a71ac46ef71ac97867d73552b10522ff
+Patch0:		%{name}-link.patch
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-devel >= 0.17
@@ -80,6 +80,7 @@ Dokumentacja API biblioteki geocode-glib.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__intltoolize}
@@ -110,7 +111,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
-%attr(755,root,root) %{_bindir}/geoip-update
 %attr(755,root,root) %{_libdir}/libgeocode-glib.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgeocode-glib.so.0
 %{_libdir}/girepository-1.0/GeocodeGlib-1.0.typelib
