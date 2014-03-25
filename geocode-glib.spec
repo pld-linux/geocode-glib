@@ -6,29 +6,28 @@
 Summary:	GLib geocoding library that uses the Yahoo! Place Finder service
 Summary(pl.UTF-8):	Biblioteka GLib do geokodowania wykorzystująca serwis Yahoo! Place Finder
 Name:		geocode-glib
-Version:	3.10.0
+Version:	3.12.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://download.gnome.org/sources/geocode-glib/3.10/%{name}-%{version}.tar.xz
-# Source0-md5:	0f20b52196bd86294d093f97397a37db
+Source0:	http://download.gnome.org/sources/geocode-glib/3.12/%{name}-%{version}.tar.xz
+# Source0-md5:	a14c9802c63c35d9ae9091053e192517
 URL:		https://developer.gnome.org/geocode-glib/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	gettext-devel >= 0.18
 BuildRequires:	glib2-devel >= 1:2.34
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.6.3
 BuildRequires:	gtk-doc >= 1.13
-BuildRequires:	intltool >= 0.41.0
-BuildRequires:	json-glib-devel >= 0.16.2
+BuildRequires:	json-glib-devel >= 0.99.2
 BuildRequires:	libsoup-devel >= 2.4
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	glib2 >= 1:2.34
-Requires:	json-glib >= 0.16.2
+Requires:	json-glib >= 0.99.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -82,7 +81,6 @@ Dokumentacja API biblioteki geocode-glib.
 %setup -q
 
 %build
-%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -113,6 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgeocode-glib.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgeocode-glib.so.0
 %{_libdir}/girepository-1.0/GeocodeGlib-1.0.typelib
+%{_iconsdir}/gnome/scalable/places/poi-*.svg
 
 %files devel
 %defattr(644,root,root,755)
