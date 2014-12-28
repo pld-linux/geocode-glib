@@ -15,7 +15,7 @@ Source0:	http://download.gnome.org/sources/geocode-glib/3.14/%{name}-%{version}.
 URL:		https://developer.gnome.org/geocode-glib/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	gettext-devel >= 0.18
+BuildRequires:	gettext-tools >= 0.18
 BuildRequires:	glib2-devel >= 1:2.34
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.6.3
