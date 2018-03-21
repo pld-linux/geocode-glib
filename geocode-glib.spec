@@ -6,17 +6,17 @@
 Summary:	GLib geocoding library that uses the Yahoo! Place Finder service
 Summary(pl.UTF-8):	Biblioteka GLib do geokodowania wykorzystująca serwis Yahoo! Place Finder
 Name:		geocode-glib
-Version:	3.20.1
+Version:	3.24.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://download.gnome.org/sources/geocode-glib/3.20/%{name}-%{version}.tar.xz
-# Source0-md5:	4d9a4c666f525b8ae534be865c8b7681
+Source0:	http://download.gnome.org/sources/geocode-glib/3.24/%{name}-%{version}.tar.xz
+# Source0-md5:	9defe9329b13cdf44bcc31618c97d66e
 URL:		https://developer.gnome.org/geocode-glib/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	gettext-tools >= 0.18
-BuildRequires:	glib2-devel >= 1:2.34
+BuildRequires:	gettext-tools >= 0.19.6
+BuildRequires:	glib2-devel >= 1:2.44
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.6.3
 BuildRequires:	gtk-doc >= 1.13
@@ -26,7 +26,7 @@ BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-Requires:	glib2 >= 1:2.34
+Requires:	glib2 >= 1:2.44
 Requires:	json-glib >= 0.99.2
 Requires:	libsoup >= 2.42
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -46,7 +46,7 @@ Summary:	Header files for geocode-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki geocode-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.34
+Requires:	glib2-devel >= 1:2.44
 
 %description devel
 Header files for geocode-glib library.
