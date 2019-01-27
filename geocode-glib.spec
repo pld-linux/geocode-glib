@@ -6,24 +6,24 @@
 Summary:	GLib geocoding library that uses the Yahoo! Place Finder service
 Summary(pl.UTF-8):	Biblioteka GLib do geokodowania wykorzystująca serwis Yahoo! Place Finder
 Name:		geocode-glib
-Version:	3.24.0
+Version:	3.26.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://download.gnome.org/sources/geocode-glib/3.24/%{name}-%{version}.tar.xz
-# Source0-md5:	9defe9329b13cdf44bcc31618c97d66e
+Source0:	http://download.gnome.org/sources/geocode-glib/3.26/%{name}-%{version}.tar.xz
+# Source0-md5:	98c0a7d175014d5865be7d3f774ef14c
 URL:		https://developer.gnome.org/geocode-glib/
-BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-tools >= 0.19.6
 BuildRequires:	glib2-devel >= 1:2.44
-BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.6.3
 BuildRequires:	gtk-doc >= 1.13
 BuildRequires:	json-glib-devel >= 0.99.2
 BuildRequires:	libsoup-devel >= 2.42
-BuildRequires:	libtool >= 2:2.2
+BuildRequires:	meson
+BuildRequires:	ninja
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.727
+BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	glib2 >= 1:2.44
@@ -84,24 +84,21 @@ Dokumentacja API biblioteki geocode-glib.
 %prep
 %setup -q
 
+%if %{with static_libs}
+%{__sed} -i -e 's/shared_library/library/' geocode-glib/meson.build
+%endif
+
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	%{__enable_disable apidocs gtk-doc} \
-	--disable-silent-rules \
-	%{__enable_disable static_libs static} \
-	--with-html-dir=%{_gtkdocdir}
-%{__make}
+%meson build \
+	%{!?with_apidocs:-Denable-gtk-doc=false} \
+	-Denable-installed-tests=false
+
+%meson_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%meson_install -C build
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -120,7 +117,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgeocode-glib.so
-%{_libdir}/libgeocode-glib.la
 %{_includedir}/geocode-glib-1.0
 %{_datadir}/gir-1.0/GeocodeGlib-1.0.gir
 %{_pkgconfigdir}/geocode-glib-1.0.pc
@@ -134,5 +130,5 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/geocode-glib-1.0
+%{_gtkdocdir}/geocode-glib
 %endif
