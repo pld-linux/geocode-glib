@@ -6,12 +6,12 @@
 Summary:	GLib geocoding library that uses the Yahoo! Place Finder service
 Summary(pl.UTF-8):	Biblioteka GLib do geokodowania wykorzystująca serwis Yahoo! Place Finder
 Name:		geocode-glib
-Version:	3.26.0
+Version:	3.26.1
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://download.gnome.org/sources/geocode-glib/3.26/%{name}-%{version}.tar.xz
-# Source0-md5:	98c0a7d175014d5865be7d3f774ef14c
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/geocode-glib/3.26/%{name}-%{version}.tar.xz
+# Source0-md5:	21094494e66c86368add6a55bf480049
 URL:		https://developer.gnome.org/geocode-glib/
 BuildRequires:	gettext-tools >= 0.19.6
 BuildRequires:	glib2-devel >= 1:2.44
@@ -20,9 +20,9 @@ BuildRequires:	gtk-doc >= 1.13
 BuildRequires:	json-glib-devel >= 0.99.2
 BuildRequires:	libsoup-devel >= 2.42
 BuildRequires:	meson
-BuildRequires:	ninja
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.727
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -93,12 +93,12 @@ Dokumentacja API biblioteki geocode-glib.
 	%{!?with_apidocs:-Denable-gtk-doc=false} \
 	-Denable-installed-tests=false
 
-%meson_build -C build
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%meson_install -C build
+%ninja_install -C build
 
 %clean
 rm -rf $RPM_BUILD_ROOT
