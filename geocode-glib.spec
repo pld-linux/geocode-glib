@@ -7,12 +7,12 @@
 Summary:	GLib geocoding library that uses the Nominatim service
 Summary(pl.UTF-8):	Biblioteka GLib do geokodowania wykorzystująca serwis Nominatim
 Name:		geocode-glib
-Version:	3.26.3
+Version:	3.26.4
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://download.gnome.org/sources/geocode-glib/3.26/%{name}-%{version}.tar.xz
-# Source0-md5:	748921b2cfa8450ac6857c5da370e129
+# Source0-md5:	4c0dcdb7ee1222435b20acd3d7b68cd1
 URL:		https://developer.gnome.org/geocode-glib/
 BuildRequires:	gettext-tools >= 0.19.6
 BuildRequires:	glib2-devel >= 1:2.44
