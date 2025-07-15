@@ -8,7 +8,7 @@ Summary:	GLib geocoding library that uses the Nominatim service
 Summary(pl.UTF-8):	Biblioteka GLib do geokodowania wykorzystująca serwis Nominatim
 Name:		geocode-glib
 Version:	3.26.4
-Release:	2
+Release:	3
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://download.gnome.org/sources/geocode-glib/3.26/%{name}-%{version}.tar.xz
@@ -142,29 +142,36 @@ Dokumentacja API biblioteki geocode-glib-2.
 %endif
 
 %build
-%meson build \
+%meson \
 	%{!?with_apidocs:-Denable-gtk-doc=false} \
 	-Denable-installed-tests=false
 
-%ninja_build -C build
+%meson_build
 
 %if %{with libsoup3}
-%meson build-soup3 \
+mv build build-nolibsoup3
+%meson \
 	--default-library=shared \
 	%{!?with_apidocs:-Denable-gtk-doc=false} \
 	-Denable-installed-tests=false \
 	-Dsoup2=false
 
-%ninja_build -C build-soup3
+%meson_build
+mv build build-libsoup3
+mv build-nolibsoup3 build
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %if %{with libsoup3}
-%ninja_install -C build-soup3
+mv build build-nolibsoup3
+mv build-libsoup3 build
+%meson_install
+mv build build-libsoup3
+mv build-nolibsoup3 build
 %endif
 
 %clean
