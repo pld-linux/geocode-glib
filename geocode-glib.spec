@@ -25,7 +25,7 @@ BuildRequires:	meson >= 0.49.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -142,6 +142,7 @@ Dokumentacja API biblioteki geocode-glib-2.
 %endif
 
 %build
+%define _vpath_builddir build-soup2
 %meson \
 	%{!?with_apidocs:-Denable-gtk-doc=false} \
 	-Denable-installed-tests=false
@@ -149,7 +150,7 @@ Dokumentacja API biblioteki geocode-glib-2.
 %meson_build
 
 %if %{with libsoup3}
-mv build build-nolibsoup3
+%define _vpath_builddir build-soup3
 %meson \
 	--default-library=shared \
 	%{!?with_apidocs:-Denable-gtk-doc=false} \
@@ -157,21 +158,17 @@ mv build build-nolibsoup3
 	-Dsoup2=false
 
 %meson_build
-mv build build-libsoup3
-mv build-nolibsoup3 build
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
+%define _vpath_builddir build-soup2
 %meson_install
 
 %if %{with libsoup3}
-mv build build-nolibsoup3
-mv build-libsoup3 build
+%define _vpath_builddir build-soup3
 %meson_install
-mv build build-libsoup3
-mv build-nolibsoup3 build
 %endif
 
 %clean
